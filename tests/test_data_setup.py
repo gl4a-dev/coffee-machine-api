@@ -5,17 +5,14 @@ from app.data.setup import restore_setup_data
 
 
 def test_restore_setup_creates_all_files_from_scratch(tmp_path:Path):
-    """
-    Testa se a função cria todos os arquivos do zero no diretório correto e se seus estados iniciais correspondem ao esperado.
-    """
     restore_setup_data(tmp_path)
     
     expected_files = ["menu.json", "stock.json", "state.json", "orders.json"]
     
     for file_name in expected_files:
         file_path = tmp_path / file_name
-        assert file_path.exists(), f"O arquivo {file_name} deveria existir."
-        assert file_path.is_file(), f"O caminho {file_name} deve ser um arquivo."
+        assert file_path.exists()
+        assert file_path.is_file()
 
 
     with open(tmp_path / "menu.json", "r", encoding="utf-8") as f:
@@ -48,10 +45,7 @@ def test_restore_setup_creates_all_files_from_scratch(tmp_path:Path):
     assert orders_data == []
 
 
-def test_restore_setup_resets_modified_files(tmp_path):
-    """
-    Testa se arquivos modificados ou com estados alterados retornam corretamente ao estado inicial após rodar a função.
-    """
+def test_restore_setup_resets_modified_files(tmp_path:Path):
     state_file = tmp_path / "state.json"
     stock_file = tmp_path / "stock.json"
     
@@ -79,11 +73,7 @@ def test_restore_setup_resets_modified_files(tmp_path):
     assert stock_data["agua"]["atual"] == 2000
 
 
-def test_restore_setup_with_partial_existing_files(tmp_path):
-    """
-    Testa se a função lida bem com cenários onde apenas alguns arquivos
-    existem previamente (por exemplo, resquícios parciais).
-    """
+def test_restore_setup_with_partial_existing_files(tmp_path:Path):
     orders_file = tmp_path / "orders.json"
     with open(orders_file, "w", encoding="utf-8") as f:
         json.dump([{"id": 999, "produto": "Pedido Antigo"}], f)
