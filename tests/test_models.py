@@ -13,6 +13,7 @@ from app.domain.models import (
     OrderStatusEnum,
 )
 
+
 def test_drink_valid_model():
     drink = Drink(
         id=1,

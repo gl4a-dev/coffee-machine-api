@@ -9,7 +9,7 @@ from app.domain.models import Drink, Stock, MachineState, Order, MachineStateEnu
 
 
 @pytest.fixture
-def repo(tmp_path: Path):
+def repo(tmp_path:Path):
     restore_setup_data(tmp_path)
     return JsonCoffeeMachineRepository(tmp_path)
 
@@ -37,7 +37,6 @@ def test_repository_update_drink_price(repo:JsonCoffeeMachineRepository):
 
 
 def test_repository_stock_operations(repo:JsonCoffeeMachineRepository):
-    """Testa a leitura e atualização do estoque da máquina."""
     stock = repo.get_stock()
     assert isinstance(stock, Stock)
     assert stock.agua.atual == 2000
@@ -49,14 +48,12 @@ def test_repository_stock_operations(repo:JsonCoffeeMachineRepository):
     assert reloaded_stock.agua.atual == 1800
 
 
-def test_repository_state_operations(repo):
-    """Testa a leitura e atualização do estado e crédito da máquina com Decimal."""
+def test_repository_state_operations(repo:JsonCoffeeMachineRepository):
     state = repo.get_state()
     assert isinstance(state, MachineState)
     assert state.estado == MachineStateEnum.PRONTA
     assert state.credito == Decimal("0.00")
 
-    # Altera estado e crédito
     state.estado = MachineStateEnum.PREPARANDO
     state.credito = Decimal("10.00")
     repo.update_state(state)
@@ -66,8 +63,7 @@ def test_repository_state_operations(repo):
     assert reloaded_state.credito == Decimal("10.00")
 
 
-def test_repository_order_operations(repo):
-    """Testa salvamento, listagem, busca por ID e atualização de pedidos."""
+def test_repository_order_operations(repo:JsonCoffeeMachineRepository):
     orders = repo.get_all_orders()
     assert orders == []
 
@@ -84,13 +80,11 @@ def test_repository_order_operations(repo):
     assert saved_order.id == 1
     assert len(repo.get_all_orders()) == 1
 
-    # Busca por ID
     fetched = repo.get_order_by_id(1)
     assert fetched is not None
     assert fetched.produto_nome == "Cappuccino"
     assert isinstance(fetched.preco, Decimal)
 
-    # Atualiza status do pedido
     fetched.status = OrderStatusEnum.CONCLUIDO
     repo.update_order(1, fetched)
 
