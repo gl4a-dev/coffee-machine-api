@@ -29,8 +29,7 @@ def consultar_cardapio(repo: BaseCoffeeRepository = Depends(get_repository)):
             "preparo": drink.preparo,
             "disponivel": disponivel
             })
-        
-        return cardapio
+    return cardapio
 
 @router.get("/status", summary="Estado atual e crédito")
 def consultar_status(repo: BaseCoffeeRepository = Depends(get_repository)):
