@@ -40,12 +40,12 @@ http://127.0.0.1:8000/docs
 ### Autenticação do Operador (RN11)
 As rotas administrativas (/operador/...) exigem autenticação via token (HTTPBearer) validado pela variável de ambiente OPERADOR_KEY.
 
-*Usando a chave padrão: Se nenhuma variável de ambiente for definida, a API utiliza a chave padrão minha-chave-operador-123.
+* Usando a chave padrão: Se nenhuma variável de ambiente for definida, a API utiliza a chave padrão minha-chave-operador-123.
 
-*Definindo uma chave personalizada: Antes de rodar o uvicorn, defina a variável no terminal:
+* Definindo uma chave personalizada: Antes de rodar o uvicorn, defina a variável no terminal:
 
-**Linux / macOS: export OPERADOR_KEY="sua-chave-secreta"
-**Windows (PowerShell): $env:OPERADOR_KEY="sua-chave-secreta"   
+    * Linux / macOS: export OPERADOR_KEY="sua-chave-secreta"
+    * Windows (PowerShell): $env:OPERADOR_KEY="sua-chave-secreta"   
 
 Para testar no Swagger UI, clique no botão Authorize no topo da página e insira o valor da chave.
 
