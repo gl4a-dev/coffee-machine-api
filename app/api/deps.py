@@ -2,7 +2,8 @@ import os
 from pathlib import Path
 from fastapi import Depends, HTTPException, status
 from fastapi.security import HTTPBearer, HTTPAuthorizationCredentials
-
+from dotenv import load_dotenv
+load_dotenv()
 from app.repositories.base_repository import BaseCoffeeRepository
 from app.repositories.json_repository import JsonCoffeeMachineRepository
 

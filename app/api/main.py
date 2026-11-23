@@ -1,6 +1,8 @@
 from fastapi import FastAPI
 from pathlib import Path
+from dotenv import load_dotenv
 
+load_dotenv()
 from app.data.setup import restore_setup_data
 from app.api.routes import cliente_routes, operador_routes
 

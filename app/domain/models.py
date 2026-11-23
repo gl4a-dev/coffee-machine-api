@@ -65,3 +65,10 @@ class Order(BaseModel):
     previsao_termino: datetime
 
     model_config = ConfigDict(arbitrary_types_allowed=True)
+
+class CreditRequest(BaseModel):
+    valor: Decimal = Field(..., gt=Decimal("0.00")) 
+
+class OperatorLoginRequest(BaseModel):
+    usuario: str
+    senha: str

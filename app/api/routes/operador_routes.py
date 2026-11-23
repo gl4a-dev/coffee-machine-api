@@ -1,6 +1,8 @@
 from fastapi import APIRouter, Depends
 from app.repositories.base_repository import BaseCoffeeRepository
 from app.api.deps import get_repository, verify_operator_key
+from app.domain.models import OperatorLoginRequest
+from app.services.auth_service import AuthService
 
 router = APIRouter()
 
@@ -29,3 +31,20 @@ Depends(get_repository)):
         })
 
     return {"reservatorios": reservatorios}
+
+
+@router.post("/login", summary="Autenticar operador")
+def login(request: OperatorLoginRequest):
+
+    service = AuthService()
+
+    token = service.autenticar(
+        request.usuario,
+        request.senha
+    )
+
+    return {
+        "mensagem": "Login realizado com sucesso.",
+        "access_token": token,
+        "token_type": "bearer"
+    }
